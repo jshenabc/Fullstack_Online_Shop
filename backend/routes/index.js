@@ -16,12 +16,17 @@ router.get('/', (req, res) => {
   res.redirect('/products');
 });
 
-// router.get('/products', routeControl.getProducts);
 router.get('/products', async function(req, res) {
 	let result = await routeControl.getProducts();
 	res.json(result);
-}
-);
+});
+
+router.get('/cart', async function(req, res) {
+	let result = await routeControl.getCart();
+	res.json(result);
+});
+
+
 // router.get('/products', async function(req, res) {
 //   let result = await routeControl.getProducts;
 // 	res.json(result)

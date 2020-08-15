@@ -12,7 +12,7 @@ let Schema = mongoose.Schema;
 
 // Fill in the schema definition
 
-let orderSchema = new Schema({
+let cartSchema = new Schema({
 	customerID: String,
 	products: [
 		{
@@ -23,21 +23,18 @@ let orderSchema = new Schema({
 			orderQuantity: Number
 		}
 	],
-	status: String,
-	orderTotalPrice: Number
+	cartTotalPrice: Number
 }, {
-	collection: 'Shen_OnlineShop_Order'
-},
-	{ timestamps: true },
-);
+	collection: 'Shen_OnlineShop_Cart'
+});
 
 module.exports = {	
 	getModel: () => {
 		if (connection == null) {
 			console.log("Creating connection and model...");
 			connection = mongoose.createConnection(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true });
-			model = connection.model("OrderModel", 
-									orderSchema);
+			model = connection.model("CartModel", 
+									cartSchema);
 		};
 		return model;
 	}
