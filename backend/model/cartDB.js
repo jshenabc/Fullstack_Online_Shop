@@ -20,10 +20,10 @@ let cartSchema = new Schema({
 			name: String,
 			description: String,
 			unitPrice: Number,
-			orderQuantity: Number
+			orderQuantity: Number,
+			img: String
 		}
-	],
-	cartTotalPrice: Number
+	]
 }, {
 	collection: 'Shen_OnlineShop_Cart'
 });
@@ -32,7 +32,7 @@ module.exports = {
 	getModel: () => {
 		if (connection == null) {
 			console.log("Creating connection and model...");
-			connection = mongoose.createConnection(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true });
+			connection = mongoose.createConnection(dbUrl, { useFindAndModify: false, useNewUrlParser: true, useUnifiedTopology: true });
 			model = connection.model("CartModel", 
 									cartSchema);
 		};

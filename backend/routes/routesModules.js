@@ -11,7 +11,7 @@ getProducts = async (req , res) => {
 
         let products = await Product.find({});
 
-        let results = products.map( product => {
+        let result = products.map( product => {
             return {
                 id: product._id,
                 name: product.name,
@@ -21,11 +21,31 @@ getProducts = async (req , res) => {
                 img: product.img
             }
         });
-        
-        return results;
+        return  res.json(result);
+        // return results;
         // res.render('displayProductsView',
         //         {title:"List of Products", data:results});
-        // res.json(results);
+        // res.format({
+
+        //     'application/json': function() {
+        //         res.json(result);
+        //     },
+    
+        //     'application/xml': function() {
+        //         let resultXml = 
+        //             '<?xml version="1.0"?>\n' +
+        //                     '<zipCode id="' + result._id + '">\n' + 
+        //                     '   <city>' + result.city + '</city>\n' + 
+        //                     '   <state>' + result.state + '</state>\n' + 	
+        //                     '   <pop>' + result.pop + '</pop>\n' + 				 
+        //                     '</zipCode>\n';
+                        
+                
+        //         res.type('application/xml');
+        //         res.send(resultXml);
+        //     },
+    
+        // });
         
 };
 
@@ -34,11 +54,10 @@ getCart = async (req , res) => {
 
     let cart = await Cart.find({});
     if (cart.length == 0){
-        return (async() => {
+        (async() => {
             let cart1 = new Cart({
                 customerID: loggedInUserID,
-                products: [],
-                cartTotalPrice: 0
+                products: []
             }); 
 
             // await cart1.save((err) => {
@@ -50,48 +69,77 @@ getCart = async (req , res) => {
             ]);
            
             let currentCart = await Cart.find({});
-            console.log(currentCart);
-            return currentCart;
-            process.exit();
+            return res.json(currentCart);
+            // process.exit();
         })();
     }else{
-        let results = cart;
-        return results;
+        let result = cart;
+        return  res.json(result);
     }
 
 };
 
 // add products to carts
-// Cart.findOne({ customerID: loggedInUserID }, (err, cart) => {
-//     if (err) {
-//         // return res.status(404).json({
-//         //     err,
-//         //     message: 'Movie not found!',
-//         // })
-//         console.log("cart not found for this user")
-//     }
-//     cart.name = body.name
-//     cart.time = body.time
-//     cart.rating = body.rating
-//     cart
-//         .save()
-//         .then(() => {
-//             return res.status(200).json({
-//                 success: true,
-//                 id: movie._id,
-//                 message: 'Movie updated!',
-//             })
-//         })
-//         .catch(error => {
-//             return res.status(404).json({
-//                 error,
-//                 message: 'Movie not updated!',
-//             })
-//         })
-// })
+updateCart = async (req , res) => {
+
+    // Fill in the code
+    //let id = req.body.id;
+    Cart.findOne({ customerID: req.body.custID }, (err, cart) => {
+      if(err)
+        console.log("Error Selecting : %s ", err); 
+        let productObj = 	{
+			productID: req.body.prodID,
+			name: req.body.prodName,
+			description: req.body.prodDesc,
+			unitPrice: req.body.prodPrice,
+            orderQuantity: req.body.prodQuan,
+            img:req.body.prodIMG
+        };
+        let newQuan;
+        let found = cart.products.some((product) => {
+            newQuan = product.orderQuantity + req.body.prodQuan;
+            return product.productID === req.body.prodID;
+        });
+        if (found) { 
+            Cart.findOneAndUpdate(
+                {"customerID": req.body.custID, "products.productID": req.body.prodID},{ $set:{ "products.$.orderQuantity" : newQuan }},{ new: true },(err, doc) => {
+                    if(err){
+                        console.log("Cart not updated!");
+                    }
+                    return res.json({
+                        success: true,
+                        data: doc,
+                        message: 'Cart updated!',
+                    })
+                }
+            )
+        }else{
+            cart.products.push(productObj);
+            cart.save()
+            .then(() => {
+                return res.json({
+                    success: true,
+                    id: req.body.prodID,
+                    message: 'Cart updated!',
+                })
+            })
+            .catch(error => {
+                return res.json({
+                    error,
+                    message: 'Cart not updated!',
+                })
+            })
+        }
+        
+    });
+    
+ };
+
+
 
 
 module.exports = {
     getProducts,
-    getCart
+    getCart,
+    updateCart
 }

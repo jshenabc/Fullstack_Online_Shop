@@ -3,30 +3,25 @@ var router = express.Router();
 
 // other modules
 var routeControl 	= require("./routesModules");
-// var addEmployee 			= require("./addEmployee");
-// var saveEmployee 			= require("./saveEmployee");
-// var editEmployee 			= require("./editEmployee");
-// var saveAfterEdit 	= require("./saveAfterEdit");
-// var deleteEmployee 		= require("./deleteEmployee");
-// var deleteEmployeeAfterConfirm 		= require("./deleteEmployeeAfterConfirm");
-
 
 // router specs
 router.get('/', (req, res) => {
   res.redirect('/products');
 });
 
-router.get('/products', async function(req, res) {
-	let result = await routeControl.getProducts();
-	res.json(result);
-});
+// router.get('/products', async function(req, res) {
+// 	let result = await routeControl.getProducts();
+// 	res.json(result);
+// });
 
-router.get('/cart', async function(req, res) {
-	let result = await routeControl.getCart();
-	res.json(result);
-});
+router.get('/products', routeControl.getProducts);
 
-
+// router.get('/cart', async function(req, res) {
+// 	let result = await routeControl.getCart();
+// 	res.json(result);
+// });
+router.get('/cart', routeControl.getCart)
+router.post('/cart/add', routeControl.updateCart);
 // router.get('/products', async function(req, res) {
 //   let result = await routeControl.getProducts;
 // 	res.json(result)

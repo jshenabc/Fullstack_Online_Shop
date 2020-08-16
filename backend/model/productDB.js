@@ -26,7 +26,7 @@ module.exports = {
 	getModel: () => {
 		if (connection == null) {
 			console.log("Creating connection and model...");
-			connection = mongoose.createConnection(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true });
+			connection = mongoose.createConnection(dbUrl, { useFindAndModify: false, useNewUrlParser: true, useUnifiedTopology: true });
 			model = connection.model("ProductModel", 
 									productSchema);
 		};
