@@ -9,19 +9,20 @@ router.get('/', (req, res) => {
   res.redirect('/products');
 });
 
+router.get('/products', routeControl.getProducts);
+router.get('/cart', routeControl.getCart)
+router.post('/cart/add', routeControl.updateCart);
+
 // router.get('/products', async function(req, res) {
 // 	let result = await routeControl.getProducts();
 // 	res.json(result);
 // });
 
-router.get('/products', routeControl.getProducts);
-
 // router.get('/cart', async function(req, res) {
 // 	let result = await routeControl.getCart();
 // 	res.json(result);
 // });
-router.get('/cart', routeControl.getCart)
-router.post('/cart/add', routeControl.updateCart);
+
 // router.get('/products', async function(req, res) {
 //   let result = await routeControl.getProducts;
 // 	res.json(result)
@@ -35,5 +36,6 @@ router.post('/cart/add', routeControl.updateCart);
 
 // router.get('/employees/delete/:id', deleteEmployee);
 // router.post('/employees/delete', deleteEmployeeAfterConfirm);
+
 
 module.exports = router;
