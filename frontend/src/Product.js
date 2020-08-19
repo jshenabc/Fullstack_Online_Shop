@@ -1,26 +1,54 @@
 import React from 'react'
 import "./Product.css"
 import { useStateValue } from './StateProvider'
+import apis from './utils/API'
 
 function Product({id, name, description, price, stockQuantity, img }) {
 
-    const [{basket}, dispatch] = useStateValue();
+    const [{basket, user}, dispatch] = useStateValue();
 
-    const addBasket = () => {
-        console.log("acitvate")
-        dispatch({
-            type: "ADD_BASKET",
-            productToAdd: {
-                id: id, 
-                name: name, 
-                description: description, 
-                price: price, 
-                stockQuantity: stockQuantity, 
-                img: img,
-                orderQuantity: 1
-            }
+    const handleIncludeMovie = async () => {
+        // const { name, rating, time } = this.state
+        // const arrayTime = time.split('/')
+        const payload = {
+            custID: user.id, 
+            prodID: id,
+            prodName: name, 
+            prodDesc: description, 
+            prodPrice: price, 
+            prodIMG: img,
+            prodQuan: 1
+        }
+        // console.log("payload",payload)
+        await apis.insertProductToCart(payload).then(res => {
+            dispatch({
+                type: "ADD_BASKET",
+                productToAdd: {
+                    id: id, 
+                    name: name, 
+                    description: description, 
+                    unitPrice: price, 
+                    img: img,
+                    orderQuantity: 1
+                }
+            })
         })
-    };
+    }
+
+    // const addBasket = () => {
+        
+    //     dispatch({
+    //         type: "ADD_BASKET",
+    //         productToAdd: {
+    //             id: id, 
+    //             name: name, 
+    //             description: description, 
+    //             unitPrice: price, 
+    //             img: img,
+    //             orderQuantity: 1
+    //         }
+    //     })
+    // };
 
     return (
         <div className="product">
@@ -41,7 +69,7 @@ function Product({id, name, description, price, stockQuantity, img }) {
                 </p>
                 
             </div>
-            <button onClick={addBasket}>Add to basket</button>
+            <button onClick={handleIncludeMovie}>Add to basket</button>
             
         </div>
     )

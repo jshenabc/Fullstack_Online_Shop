@@ -1,17 +1,45 @@
-import React from "react";
+import React, { Component } from "react";
 import "./Homepage.css"
 import Product from './Product'
-// import apis from './utils/API'
-import { useStateValue } from './StateProvider'
+import LoadingBar from './LoadingBar'
+// import { StateContext } from './StateProvider'
+// import axios from 'axios'
+import apis from './utils/API'
 
-function Homepage () {
-    // state = {
-    //     cart: [],
-    //     products: []
-    // }
-    // const [{basket}, dispatch] = useStateValue();
+class Homepage extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            isLoading: false,
+            productList:[],
+        }
+        // const [{basket}, dispatch] = useStateValue();
+    }
+    
+    
+    componentDidMount = async () => {
+        this.setState({ isLoading: true })
+        // const [{basket}, dispatch] = this.context;
+        await apis.getAllProducts().then(products => {
+            this.setState({
+                isLoading: false,
+                productList: products.data
+            })
+            console.log(products.data);
+            console.log("receive products: ", this.state);
+            
+        })
+    }
 
-        return ( 
+    // static contextType = StateContext; 
+    render() {
+        //   const [{basket}] = this.context;
+        //   console.log({basket});
+        const { productList, isLoading } = this.state;
+        return isLoading ?
+        (
+            <LoadingBar />
+        ) : ( 
             <div className="homePage">
                 <img
                         className="home_ad_img" 
@@ -19,35 +47,24 @@ function Homepage () {
                         alt=""
                 /> 
                 <div className="home_flex_row">
-                    <Product 
-                    id="1"
-                    name = "iphone11"
-                    description = "iphone11 product desc"
-                    price = {11}
-                    stockQuantity = {10}
-                    img = "iphone11.jpg"
-                    />
-                    <Product 
-                    id="2"
-                    name = "ipadPro"
-                    description = "ipadPro product desc"
-                    price = {11}
-                    stockQuantity = {10}
-                    img = "ipadPro.jpg"
-                    />
-                    <Product 
-                    id="3"
-                    name = "product1"
-                    description = "product desc"
-                    price = {11}
-                    stockQuantity = {10}
-                    img = "ipadPro.jpg"
-                    />
+                { typeof(productList) === 'undefined' ? <p>No result</p> : productList.map(product => {
+                        return <Product 
+                        id={product.id}
+                        name = {product.name}
+                        description = {product.description}
+                        price = {product.price}
+                        stockQuantity = {product.stockQuantity}
+                        img = {product.img}
+                        />
+                    })
+                }
+                    
+    
                 </div>
 
             </div>
-        )
-    
+        );
+        }
 }
 
 export default Homepage

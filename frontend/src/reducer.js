@@ -1,11 +1,11 @@
 export const initialState = {
     basket: [],
-    user: null,
+    user: {id: "5f35afeaea4b72f505885952", name: "JIA SHEN"},
 }
 
 export const getCheckoutSubtotal = (basket) => 
 basket?.reduce((sum,value) => {
-    return (sum + value.price * value.orderQuantity)
+    return (sum + value.unitPrice * value.orderQuantity)
 }, 0);
 
 
@@ -19,6 +19,11 @@ function reducer(state, action) {
     console.log("prevState: ", state);
     console.log("action: ", action);
     switch(action.type) {
+        case 'RECEIVE_BASKET':
+            return { 
+                ...state,
+                basket: action.receiveBasket.data
+            }
         case 'ADD_BASKET':
             let existingBasket = [...state.basket];
             let productToBeAdded = action.productToAdd;
@@ -38,7 +43,7 @@ function reducer(state, action) {
                     basket: [...state.basket, action.productToAdd],
                 }
             }
-            break;
+           
         case 'REMOVE_BASKET':
             //make a copy of basket state
             let updatedBasket = [...state.basket];
@@ -47,7 +52,7 @@ function reducer(state, action) {
             return { ...state,
                     basket: updatedBasket
             }
-            break;
+      
         default:
             return state;
     }

@@ -1,10 +1,8 @@
-const loggedInUserID = "5f35afeaea4b72f505885952";
-
 const productDB = require('../model/productDB.js');
 const Product = productDB.getModel();
 const cartDB = require('../model/cartDB.js');
 const Cart = cartDB.getModel();
-
+// const loggedInUserID = "5f35afeaea4b72f505885952";
 // display all products
 
 getProducts = async (req , res) => {
@@ -21,6 +19,7 @@ getProducts = async (req , res) => {
                 img: product.img
             }
         });
+
         return  res.json(result);
         // return results;
         // res.render('displayProductsView',
@@ -49,17 +48,29 @@ getProducts = async (req , res) => {
         
 };
 
-//display carts
+//find customer id and display carts
+// getCart = async (req, res) => {
+//     await Cart.findOne({ customerID: req.params.id }, (err, cart) => {
+//         if (err) {
+//             return res.json({ success: false, error: err })
+//         }
+
+//         if (!cart) {
+//             return res.json({ success: false, error: `Cart not found` })
+//         }
+//         return res.json({ success: true, data: cart })
+//     }).catch(err => console.log(err))
+// }
 getCart = async (req , res) => {
 
     let cart = await Cart.find({});
     if (cart.length == 0){
         (async() => {
             let cart1 = new Cart({
-                customerID: loggedInUserID,
+                customerID: req.params.id,
                 products: []
             }); 
-
+            console.log(cart1);
             // await cart1.save((err) => {
             //     if(err)
             //     console.log("Error : %s ",err);
@@ -73,10 +84,17 @@ getCart = async (req , res) => {
             // process.exit();
         })();
     }else{
-        let result = cart;
-        return  res.json(result);
+        await Cart.findOne({ customerID: req.params.id }, (err, cart) => {
+            if (err) {
+                return res.json({ success: false, error: err })
+            }
+    
+            if (!cart) {
+                return res.json({ success: false, error: `Cart not found` })
+            }
+            return res.json({ success: true, data: cart })
+        }).catch(err => console.log(err))
     }
-
 };
 
 // add products to carts

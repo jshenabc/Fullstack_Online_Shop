@@ -26,8 +26,7 @@ function Cart () {
                             productID={product.id}
                             name={product.name}
                             description={product.description}
-                            unitPrice={product.price}
-                            stockQuantity={product.stockQuantity}
+                            unitPrice={product.unitPrice}
                             img={product.img}
                             orderQuantity = {product.orderQuantity}
                         />

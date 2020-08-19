@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/products', routeControl.getProducts);
-router.get('/cart', routeControl.getCart)
+router.get('/cart/:id', routeControl.getCart)
 router.post('/cart/add', routeControl.updateCart);
 
 // router.get('/products', async function(req, res) {

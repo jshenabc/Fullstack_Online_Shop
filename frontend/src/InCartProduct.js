@@ -3,7 +3,7 @@ import "./InCartProduct.css"
 // import apis from './utils/API'
 import { useStateValue } from './StateProvider'
 
-function InCartProduct ({productID, name, description, unitPrice, stockQuantity, img, orderQuantity }) {
+function InCartProduct ({productID, name, description, unitPrice, img, orderQuantity }) {
 
     const [{basket}, dispatch] = useStateValue();
     const removeBasket = () => {
@@ -26,10 +26,10 @@ function InCartProduct ({productID, name, description, unitPrice, stockQuantity,
                     <small>Unit Price: $ </small>
                     <strong>{unitPrice}</strong>
                 </p>
-                <p className="cartProduct_stock">
+                {/* <p className="cartProduct_stock">
                     <small>In Stock: </small>
                     <strong>{stockQuantity}</strong>
-                </p>
+                </p> */}
                 <p className="cartProduct_stock">
                     <small>Qty: </small>
                     <strong>{orderQuantity}</strong>
