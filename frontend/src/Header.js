@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import SearchIcon from '@material-ui/icons/Search'
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket'
 import { useStateValue } from './StateProvider'
-
+import { getBasketCount } from './reducer'
 function Header() {
     const [{basket}] = useStateValue();
     return (
@@ -37,9 +37,7 @@ function Header() {
                         <ShoppingBasketIcon />    
                         <span className="header_opt_basket_count">
                         {/* {basket?.length} */}
-                        {basket.reduce((sum,value) => {
-                            return (sum + value.orderQuantity)
-                        }, 0)}
+                        {getBasketCount(basket)}
                         </span>
                     </div>
                 </Link>

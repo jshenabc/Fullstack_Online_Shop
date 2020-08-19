@@ -3,6 +3,8 @@ import "./Cart.css"
 // import apis from './utils/API'
 import { useStateValue } from './StateProvider'
 import InCartProduct from './InCartProduct'
+import CheckoutSection from "./CheckoutSection";
+
 function Cart () {
     // state = {
     //     cart: [],
@@ -14,11 +16,11 @@ function Cart () {
            <div className="cart">
                {(basket?.length === 0)?(
                    <div>
-                       <h1>Your Shopping Basket is empty</h1>
+                       <h1 className="cart_title">Your Shopping Basket is empty</h1>
                    </div>
                ):(
-                   <div>
-                       <h1>Your Shopping Basket</h1>
+                   <div className="added_product_section">
+                       <h1 className="cart_title">Your Shopping Basket</h1>
                        {basket.map(product => (
                         <InCartProduct 
                             productID={product.id}
@@ -31,9 +33,16 @@ function Cart () {
                         />
                         ))}
                    </div>
-                
-                
+                    
                )}
+               {basket.reduce((sum,value) => {
+                            return (sum + value.orderQuantity)
+                        }, 0)> 0 && (
+                            <div className="checkoutSection">
+                                <CheckoutSection />
+                            </div>
+                        )
+                }
            </div>
         )
     

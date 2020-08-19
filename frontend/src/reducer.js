@@ -3,6 +3,18 @@ export const initialState = {
     user: null,
 }
 
+export const getCheckoutSubtotal = (basket) => 
+basket?.reduce((sum,value) => {
+    return (sum + value.price * value.orderQuantity)
+}, 0);
+
+
+export const getBasketCount = (basket) => 
+basket?.reduce((sum,value) => {
+    return (sum + value.orderQuantity)
+}, 0);
+
+
 function reducer(state, action) {
     console.log("prevState: ", state);
     console.log("action: ", action);

@@ -1,3 +1,16 @@
 .cart {
-    
+    display: flex;
+    height: max-content;
+    padding: 15px;
+}
+
+
+.cart_title{
+    margin: 10px;
+    padding: 10px 0 10px;
+    border-bottom: 2px solid lightgray;
+}
+
+.added_product_section{
+    width: 100%;
 }
