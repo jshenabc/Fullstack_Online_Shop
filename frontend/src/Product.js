@@ -7,6 +7,7 @@ function Product({id, name, description, price, stockQuantity, img }) {
     const [{basket}, dispatch] = useStateValue();
 
     const addBasket = () => {
+        console.log("acitvate")
         dispatch({
             type: "ADD_BASKET",
             productToAdd: {
@@ -15,7 +16,8 @@ function Product({id, name, description, price, stockQuantity, img }) {
                 description: description, 
                 price: price, 
                 stockQuantity: stockQuantity, 
-                img: img
+                img: img,
+                orderQuantity: 1
             }
         })
     };

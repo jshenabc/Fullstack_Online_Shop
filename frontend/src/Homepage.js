@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import "./Homepage.css"
 import Product from './Product'
 // import apis from './utils/API'
@@ -9,8 +9,8 @@ function Homepage () {
     //     cart: [],
     //     products: []
     // }
-    const [{basket}, dispatch] = useStateValue();
-    
+    // const [{basket}, dispatch] = useStateValue();
+
         return ( 
             <div className="homePage">
                 <img
@@ -21,22 +21,22 @@ function Homepage () {
                 <div className="home_flex_row">
                     <Product 
                     id="1"
-                    name = "product1"
-                    description = "product desc"
+                    name = "iphone11"
+                    description = "iphone11 product desc"
+                    price = {11}
+                    stockQuantity = {10}
+                    img = "iphone11.jpg"
+                    />
+                    <Product 
+                    id="2"
+                    name = "ipadPro"
+                    description = "ipadPro product desc"
                     price = {11}
                     stockQuantity = {10}
                     img = "ipadPro.jpg"
                     />
                     <Product 
-                    id="1"
-                    name = "product1"
-                    description = "product desc"
-                    price = {11}
-                    stockQuantity = {10}
-                    img = "ipadPro.jpg"
-                    />
-                    <Product 
-                    id="1"
+                    id="3"
                     name = "product1"
                     description = "product desc"
                     price = {11}
