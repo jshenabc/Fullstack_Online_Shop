@@ -26,7 +26,7 @@ class Header extends Component {
             //     productList: products.data
             // })
             console.log("products in cart", cart.data.data.products);
-            let receivedDate = cart.data.data.products.map(product => {
+            let receivedData = cart.data.data.products.map(product => {
                 return {
                     description: product.description,
                     img: product.img,
@@ -41,7 +41,7 @@ class Header extends Component {
             dispatch({
                 type: "RECEIVE_BASKET",
                 receiveBasket: {
-                    data: receivedDate,
+                    data: receivedData,
                 }
             })
             console.log("products in basket", {basket});
@@ -51,7 +51,7 @@ class Header extends Component {
 
     render() {
 
-        const [{basket}] = this.context;
+        const [{basket, user}] = this.context;
 
         return (
             <nav className="header">
@@ -70,10 +70,11 @@ class Header extends Component {
                 <div className="header_nav">
                     <Link to ="/login" className="header_link">
                         <div className="header_opt">  
-                            <span>Sign In</span>
+                        <span>Welcome! {user.firstName}</span>
+                  
                         </div>
                     </Link>
-                    <Link to ="/login" className="header_link">
+                    <Link to ="/myorders" className="header_link">
                         <div className="header_opt">     
                             <span>Orders</span>
                         </div>

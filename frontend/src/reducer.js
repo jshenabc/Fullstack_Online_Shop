@@ -1,6 +1,7 @@
 export const initialState = {
     basket: [],
-    user: {id: "5f35afeaea4b72f505885952", name: "JIA SHEN"},
+    user: {id: "5f3dd486789696722576c629", firstName:'John',lastName:'Smith', email:'JohnSmith@bu.edu', address:'1 Bay State Road Boston, MA 02215'},
+    orders: [],
 }
 
 export const getCheckoutSubtotal = (basket) => 
@@ -52,7 +53,13 @@ function reducer(state, action) {
             return { ...state,
                     basket: updatedBasket
             }
-      
+        
+        case 'SUBMIT_ORDER':
+            let orderToBeAdded = action.orderDetail;
+            return { 
+                ...state,
+                basket: [...state.orders, orderToBeAdded],
+            }
         default:
             return state;
     }

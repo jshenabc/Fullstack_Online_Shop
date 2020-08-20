@@ -2,6 +2,8 @@ const productDB = require('../model/productDB.js');
 const Product = productDB.getModel();
 const cartDB = require('../model/cartDB.js');
 const Cart = cartDB.getModel();
+const orderDB = require('../model/orderDB.js');
+const Order = orderDB.getModel();
 // const loggedInUserID = "5f35afeaea4b72f505885952";
 // display all products
 
@@ -48,19 +50,7 @@ getProducts = async (req , res) => {
         
 };
 
-//find customer id and display carts
-// getCart = async (req, res) => {
-//     await Cart.findOne({ customerID: req.params.id }, (err, cart) => {
-//         if (err) {
-//             return res.json({ success: false, error: err })
-//         }
 
-//         if (!cart) {
-//             return res.json({ success: false, error: `Cart not found` })
-//         }
-//         return res.json({ success: true, data: cart })
-//     }).catch(err => console.log(err))
-// }
 getCart = async (req , res) => {
 
     let cart = await Cart.find({});
@@ -97,12 +87,27 @@ getCart = async (req , res) => {
     }
 };
 
+getOrdersbyCustomerID = async (req , res) => {
+    let queryID = req.params.id;
+    console.log("queryID",queryID)
+    await Order.find({ customerID: req.params.id }, (err, orders) => {
+        if (err) {
+            return res.json({ success: false, error: err })
+        }
+        console.log("orders",orders)
+        if (!orders) {
+            return res.json({ success: false, error: `Orders not found` })
+        }
+        return res.json({ success: true, data: orders })
+    }).catch(err => console.log(err))
+};
+
 // add products to carts
 updateCart = async (req , res) => {
 
     // Fill in the code
     //let id = req.body.id;
-    Cart.findOne({ customerID: req.body.custID }, (err, cart) => {
+    await Cart.findOne({ customerID: req.body.custID }, (err, cart) => {
       if(err)
         console.log("Error Selecting : %s ", err); 
         let productObj = 	{
@@ -149,7 +154,7 @@ updateCart = async (req , res) => {
             })
         }
         
-    });
+    }).catch(err => console.log(err))
     
  };
 
@@ -160,7 +165,7 @@ removeCart = async (req , res) => {
    console.log(req.params.prodID);
 
 
-    Cart.findOne({ customerID: req.params.custID }, (err, cart) => {
+   await Cart.findOne({ customerID: req.params.custID }, (err, cart) => {
         if(err)
             console.log("Error Selecting : %s ", err); 
 
@@ -182,15 +187,73 @@ removeCart = async (req , res) => {
             })
         })
             
-        });
+    }).catch(err => console.log(err))
     
  };
 
+//submit Order
+submitOrder = (req, res) => {
+    const body = req.body;
+    console.log(body);
+    if (!body) {
+        return res.json({
+            success: false,
+            error: 'You must provide a order',
+        })
+    }
 
+    const order = new Order(body)
+
+    if (!order) {
+        return res.json({ success: false, error: err })
+    }
+
+    order
+        .save()
+        .then(() => {
+            return res.json({
+                success: true,
+                id: order._id,
+                message: 'Order created!',
+            })
+        })
+        .catch(error => {
+            return res.json({
+                error,
+                message: 'Order not created!',
+            })
+        })
+}
+
+// submitOrder = async (req , res) => {
+
+//     let product1 = new Product({
+// 		name:'Apple 16" MacBook Pro with Touch Bar', description:'9th-Gen 8-Core Intel i9 2.3GHz, 16GB RAM, 1TB SSD, AMD Radeon Pro 5500M 8GB, Space Gray, Late 2019 ', price: 2869.99 , stockQuantity: 10, img:'mac16.jpg'
+//     }); 
+    
+//     cart.products.push(productObj);
+//             cart.save()
+//             .then(() => {
+//                 return res.json({
+//                     success: true,
+//                     id: req.body.prodID,
+//                     message: 'Cart updated!',
+//                 })
+//             })
+//             .catch(error => {
+//                 return res.json({
+//                     error,
+//                     message: 'Cart not updated!',
+//                 })
+//             })
+    
+//  };
 
 module.exports = {
     getProducts,
     getCart,
     updateCart,
     removeCart,
+    submitOrder,
+    getOrdersbyCustomerID,
 }

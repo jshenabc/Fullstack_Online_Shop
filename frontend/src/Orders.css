@@ -1,0 +1,47 @@
+.orders {
+    display: flex;
+    height: max-content;
+    padding: 15px;
+}
+
+
+.order_title{
+    margin: 10px;
+    padding: 10px 0 10px;
+    border-bottom: 2px solid lightgray;
+}
+
+.orders_section{
+    width: 100%;
+}
+
+
+.InOrderProduct {
+    display: flex;
+    background-color: white;
+    z-index: 1;
+    margin: 10px;
+    padding: 20px;
+}
+
+.InOrderProductList {
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+}
+
+.InOrderProductListDetail {
+    display: flex;
+}
+
+.custInfo > p{
+    margin: 5px 0 5px 0;
+}
+
+.OrderInfo {
+    margin-top: 30px;
+}
+
+.OrderInfo > p{
+    margin: 5px 0 5px 0;
+}

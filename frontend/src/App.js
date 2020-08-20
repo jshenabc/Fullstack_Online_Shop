@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import Header from './Header'
 import Homepage from './Homepage';
 import Cart from './Cart';
+import Orders from './Orders';
 
 function App() {
 
@@ -15,8 +16,9 @@ function App() {
             <Header />
             <Cart />
           </Route>
-          <Route path="/login">
-            <h1>login</h1>
+          <Route path="/myorders">
+            <Header />
+            <Orders />
           </Route>
           <Route path="/">
             <Header />

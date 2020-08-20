@@ -7,15 +7,15 @@ const Customer = CustomerDB.getModel();
 	await Customer.deleteMany({});
 
 	let customer1 = new Customer({
-		firstName:'John',lastName:'Smith',email:'JohnSmith@bu.edu', orders:[]
+		firstName:'John',lastName:'Smith',email:'JohnSmith@bu.edu', address:'1 Bay State Road Boston, MA 02215', orders:[]
 	}); 
 
 	let customer2 = new Customer({
-		firstName:'Jane',lastName:'Smith',email:'JaneSmith@bu.edu', orders:[]
+		firstName:'Jane',lastName:'Smith',email:'JaneSmith@bu.edu', address:'2 Bay State Road Boston, MA 02215', orders:[]
 	}); 
 
 	let customer3 = new Customer({
-		firstName:'John',lastName:'Doe',email:'JohnDoe@bu.edu', orders:[]
+		firstName:'John',lastName:'Doe',email:'JohnDoe@bu.edu', address:'3 Bay State Road Boston, MA 02215', orders:[]
 	}); 
 
 

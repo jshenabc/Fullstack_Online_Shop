@@ -14,13 +14,22 @@ let Schema = mongoose.Schema;
 
 let orderSchema = new Schema({
 	customerID: String,
+	customer: 
+		{	
+			firstName: String,
+			lastName: String,
+			email: String,
+			address: String,
+		}
+	,
 	products: [
 		{
 			id: String,
 			name: String,
 			description: String,
 			unitPrice: Number,
-			orderQuantity: Number
+			orderQuantity: Number,
+			img: String
 		}
 	],
 	status: String,
