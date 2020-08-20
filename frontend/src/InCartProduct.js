@@ -19,12 +19,6 @@ function InCartProduct ({productID, name, description, unitPrice, img, orderQuan
         })
     }
 
-    const removeBasket = () => {
-        dispatch({
-            type:"REMOVE_BASKET",
-            id:productID,
-        })
-    };
     
     return ( 
         <div className="InCartProduct" id={productID}>

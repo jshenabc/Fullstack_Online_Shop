@@ -48,7 +48,7 @@ class Homepage extends Component {
                 /> 
                 <div className="home_flex_row">
                 { typeof(productList) === 'undefined' ? <p>No result</p> : productList.map(product => {
-                        return <Product 
+                        return <Product key={product.key}
                         id={product.id}
                         name = {product.name}
                         description = {product.description}

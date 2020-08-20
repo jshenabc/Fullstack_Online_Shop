@@ -13,8 +13,8 @@ router.get('/products', routeControl.getProducts);
 router.get('/orders/:id', routeControl.getOrdersbyCustomerID)
 router.get('/cart/:id', routeControl.getCart)
 router.post('/cart/add', routeControl.updateCart);
-// router.get('/cart/delete/custID/:custID', routeControl.removeCart);
 router.delete('/cart/delete/custID/:custID/prodID/:prodID', routeControl.removeCart);
+router.delete('/cart/deleteAll/custID/:custID', routeControl.removeAllCart);
 router.post('/order/submit', routeControl.submitOrder);
 // router.get('/products', async function(req, res) {
 // 	let result = await routeControl.getProducts();

@@ -156,9 +156,9 @@ updateCart = async (req , res) => {
         
     }).catch(err => console.log(err))
     
- };
+};
 
-// delete products from carts
+// delete product from carts
 removeCart = async (req , res) => {
 
    console.log(req.params.custID);
@@ -189,7 +189,37 @@ removeCart = async (req , res) => {
             
     }).catch(err => console.log(err))
     
- };
+};
+
+// remove all products from cart after submitting order
+removeAllCart = async (req , res) => {
+
+    await Cart.findOne({ customerID: req.params.custID }, (err, cart) => {
+         if(err)
+             console.log("Error Selecting : %s ", err); 
+ 
+         cart.products = [];
+ 
+ 
+         cart.save()
+         .then(() => {
+             return res.json({
+                 success: true,
+                 id: req.params.prodID,
+                 message: 'All products are removed from cart!',
+             })
+         })
+         .catch(error => {
+             return res.json({
+                 error,
+                 message: 'Products are not removed from cart!',
+             })
+         })
+             
+     }).catch(err => console.log(err))
+     
+};
+
 
 //submit Order
 submitOrder = (req, res) => {
@@ -225,29 +255,6 @@ submitOrder = (req, res) => {
         })
 }
 
-// submitOrder = async (req , res) => {
-
-//     let product1 = new Product({
-// 		name:'Apple 16" MacBook Pro with Touch Bar', description:'9th-Gen 8-Core Intel i9 2.3GHz, 16GB RAM, 1TB SSD, AMD Radeon Pro 5500M 8GB, Space Gray, Late 2019 ', price: 2869.99 , stockQuantity: 10, img:'mac16.jpg'
-//     }); 
-    
-//     cart.products.push(productObj);
-//             cart.save()
-//             .then(() => {
-//                 return res.json({
-//                     success: true,
-//                     id: req.body.prodID,
-//                     message: 'Cart updated!',
-//                 })
-//             })
-//             .catch(error => {
-//                 return res.json({
-//                     error,
-//                     message: 'Cart not updated!',
-//                 })
-//             })
-    
-//  };
 
 module.exports = {
     getProducts,
@@ -256,4 +263,5 @@ module.exports = {
     removeCart,
     submitOrder,
     getOrdersbyCustomerID,
+    removeAllCart,
 }

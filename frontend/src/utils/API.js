@@ -10,6 +10,7 @@ export const insertProductToCart = payload => api.post(`/cart/add`, payload)
 export const getAllProducts = () => api.get(`/products`)
 export const createOrder = payload => api.post(`/order/submit`, payload)
 export const deleteProductById = (custID, prodID) => api.delete(`/cart/delete/custID/${custID}/prodID/${prodID}`)
+export const deleteAllProductFromCart = (custID) => api.delete(`/cart/deleteAll/custID/${custID}`)
 export const getCartByCustomerId = id => api.get(`/cart/${id}`)
 export const getOrdersbyCustomerID = id => api.get(`/orders/${id}`)
 
@@ -19,7 +20,8 @@ const apis = {
     createOrder,
     deleteProductById,
     getCartByCustomerId,
-    getOrdersbyCustomerID
+    getOrdersbyCustomerID,
+    deleteAllProductFromCart
 }
 
 export default apis

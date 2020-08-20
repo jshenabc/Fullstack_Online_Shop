@@ -7,14 +7,7 @@ import { StateContext } from './StateProvider'
 import { getBasketCount } from './reducer'
 import apis from './utils/API'
 class Header extends Component {
-    constructor(props) {
-        super(props)
-        // this.state = {
-        //     loggedInUserID: "5f35afeaea4b72f505885952",
-        // }
-        
-    }
-  
+
 
     componentDidMount = async () => {
         // this.setState({ isLoading: true })

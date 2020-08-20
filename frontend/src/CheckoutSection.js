@@ -4,10 +4,9 @@ import { useStateValue } from './StateProvider'
 import { getBasketCount } from './reducer'
 import { getCheckoutSubtotal } from './reducer'
 import apis from './utils/API'
-import { Redirect } from "react-router-dom";
 
 function CheckoutSection () {
-    const [{basket, user}, dispatch] = useStateValue();
+    const [{basket, user}] = useStateValue();
 
     const handleSubmitOrder = async () => {
         let totalPrice = getCheckoutSubtotal(basket);
@@ -28,13 +27,22 @@ function CheckoutSection () {
 
         await apis.createOrder(payload).then(res => {
             console.log("order number:", res.data.id);
-            dispatch({
-                type: "SUBMIT_ORDER",
-                orderDetail: payload
-            })
-    
-            window.location.replace("http://localhost:8000/myorders");
+            // dispatch({
+            //     type: "SUBMIT_ORDER",
+            //     orderDetail: payload
+            // })
+        
+         
         })
+
+        await apis.deleteAllProductFromCart(user.id).then(res => {
+            // dispatch({
+            //     type:"REMOVE_BASKET",
+            //     id:productID,
+            // })
+            console.log("order submitted, cart removed");
+        })
+        window.location.replace("http://localhost:8000/myorders");
     }
         return ( 
             <div className="checkout_section">

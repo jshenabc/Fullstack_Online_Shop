@@ -4,8 +4,8 @@ import './LoadingBar.css';
 function LoadingBar() {
 
   return (
-    <div class="loader">
-        <div class="bar"></div>
+    <div className="loader">
+        <div className="bar"></div>
     </div>
   );
 }

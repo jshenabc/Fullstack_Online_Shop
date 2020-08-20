@@ -5,7 +5,7 @@ import apis from './utils/API'
 
 function Product({id, name, description, price, stockQuantity, img }) {
 
-    const [{basket, user}, dispatch] = useStateValue();
+    const [{ user}, dispatch] = useStateValue();
 
     const handleAddBasket = async () => {
         // const { name, rating, time } = this.state
