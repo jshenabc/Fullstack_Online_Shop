@@ -106,7 +106,7 @@ updateCart = async (req , res) => {
       if(err)
         console.log("Error Selecting : %s ", err); 
         let productObj = 	{
-			productID: req.body.prodID,
+			id: req.body.prodID,
 			name: req.body.prodName,
 			description: req.body.prodDesc,
 			unitPrice: req.body.prodPrice,
@@ -116,11 +116,11 @@ updateCart = async (req , res) => {
         let newQuan;
         let found = cart.products.some((product) => {
             newQuan = product.orderQuantity + req.body.prodQuan;
-            return product.productID === req.body.prodID;
+            return product.id === req.body.prodID;
         });
         if (found) { 
             Cart.findOneAndUpdate(
-                {"customerID": req.body.custID, "products.productID": req.body.prodID},{ $set:{ "products.$.orderQuantity" : newQuan }},{ new: true },(err, doc) => {
+                {"customerID": req.body.custID, "products.id": req.body.prodID},{ $set:{ "products.$.orderQuantity" : newQuan }},{ new: true },(err, doc) => {
                     if(err){
                         console.log("Cart not updated!");
                     }
@@ -153,11 +153,44 @@ updateCart = async (req , res) => {
     
  };
 
+// delete products from carts
+removeCart = async (req , res) => {
+
+   console.log(req.params.custID);
+   console.log(req.params.prodID);
+
+
+    Cart.findOne({ customerID: req.params.custID }, (err, cart) => {
+        if(err)
+            console.log("Error Selecting : %s ", err); 
+
+        cart.products = cart.products.filter(product => product.id !== req.params.prodID)
+
+
+        cart.save()
+        .then(() => {
+            return res.json({
+                success: true,
+                id: req.params.prodID,
+                message: 'prodID removed!',
+            })
+        })
+        .catch(error => {
+            return res.json({
+                error,
+                message: 'prodID not removed!',
+            })
+        })
+            
+        });
+    
+ };
 
 
 
 module.exports = {
     getProducts,
     getCart,
-    updateCart
+    updateCart,
+    removeCart,
 }

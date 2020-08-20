@@ -7,7 +7,7 @@ function Product({id, name, description, price, stockQuantity, img }) {
 
     const [{basket, user}, dispatch] = useStateValue();
 
-    const handleIncludeMovie = async () => {
+    const handleAddBasket = async () => {
         // const { name, rating, time } = this.state
         // const arrayTime = time.split('/')
         const payload = {
@@ -19,7 +19,7 @@ function Product({id, name, description, price, stockQuantity, img }) {
             prodIMG: img,
             prodQuan: 1
         }
-        // console.log("payload",payload)
+
         await apis.insertProductToCart(payload).then(res => {
             dispatch({
                 type: "ADD_BASKET",
@@ -69,7 +69,7 @@ function Product({id, name, description, price, stockQuantity, img }) {
                 </p>
                 
             </div>
-            <button onClick={handleIncludeMovie}>Add to basket</button>
+            <button onClick={handleAddBasket}>Add to basket</button>
             
         </div>
     )

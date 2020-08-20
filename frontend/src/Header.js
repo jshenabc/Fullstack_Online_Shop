@@ -26,15 +26,25 @@ class Header extends Component {
             //     productList: products.data
             // })
             console.log("products in cart", cart.data.data.products);
-            console.log("products in basket", {basket});
+            let receivedDate = cart.data.data.products.map(product => {
+                return {
+                    description: product.description,
+                    img: product.img,
+                    name: product.name,
+                    orderQuantity: product.orderQuantity,
+                    unitPrice: product.unitPrice,
+                    id: product.id,
+                }
+            })
+           
             // console.log("receive products: ", this.state);
             dispatch({
                 type: "RECEIVE_BASKET",
                 receiveBasket: {
-                    data: cart.data.data.products,
+                    data: receivedDate,
                 }
             })
-            
+            console.log("products in basket", {basket});
         })
     }
     static contextType = StateContext; 

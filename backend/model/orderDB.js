@@ -16,7 +16,7 @@ let orderSchema = new Schema({
 	customerID: String,
 	products: [
 		{
-			productID: String,
+			id: String,
 			name: String,
 			description: String,
 			unitPrice: Number,

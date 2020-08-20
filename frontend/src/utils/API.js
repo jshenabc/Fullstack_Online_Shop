@@ -9,14 +9,14 @@ const api = axios.create({
 export const insertProductToCart = payload => api.post(`/cart/add`, payload)
 export const getAllProducts = () => api.get(`/products`)
 // export const updateMovieById = (id, payload) => api.put(`/movie/${id}`, payload)
-// export const deleteMovieById = id => api.delete(`/movie/${id}`)
+export const deleteProductById = (custID, prodID) => api.delete(`/cart/delete/custID/${custID}/prodID/${prodID}`)
 export const getCartByCustomerId = id => api.get(`/cart/${id}`)
 
 const apis = {
     insertProductToCart,
     getAllProducts,
     // updateMovieById,
-    // deleteMovieById,
+    deleteProductById,
     getCartByCustomerId
 }
 

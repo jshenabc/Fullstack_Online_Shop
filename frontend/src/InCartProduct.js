@@ -2,10 +2,23 @@ import React from "react";
 import "./InCartProduct.css"
 // import apis from './utils/API'
 import { useStateValue } from './StateProvider'
+import apis from './utils/API'
 
 function InCartProduct ({productID, name, description, unitPrice, img, orderQuantity }) {
 
-    const [{basket}, dispatch] = useStateValue();
+    const [{basket, user}, dispatch] = useStateValue();
+
+    const handleRemoveBasket = async () => {
+        console.log("basket",{basket});
+        console.log(user.id, productID)
+        await apis.deleteProductById(user.id, productID).then(res => {
+            dispatch({
+                type:"REMOVE_BASKET",
+                id:productID,
+            })
+        })
+    }
+
     const removeBasket = () => {
         dispatch({
             type:"REMOVE_BASKET",
@@ -14,7 +27,7 @@ function InCartProduct ({productID, name, description, unitPrice, img, orderQuan
     };
     
     return ( 
-        <div className="InCartProduct">
+        <div className="InCartProduct" id={productID}>
             <img className="product_img" 
                 src={"/images/" + img}
                 alt="" 
@@ -34,7 +47,7 @@ function InCartProduct ({productID, name, description, unitPrice, img, orderQuan
                     <small>Qty: </small>
                     <strong>{orderQuantity}</strong>
                 </p>
-                <button onClick={removeBasket}>Remove from basket</button>
+                <button onClick={handleRemoveBasket}>Remove from basket</button>
             </div>
         </div>
     )

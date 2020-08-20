@@ -12,7 +12,8 @@ router.get('/', (req, res) => {
 router.get('/products', routeControl.getProducts);
 router.get('/cart/:id', routeControl.getCart)
 router.post('/cart/add', routeControl.updateCart);
-
+// router.get('/cart/delete/custID/:custID', routeControl.removeCart);
+router.delete('/cart/delete/custID/:custID/prodID/:prodID', routeControl.removeCart);
 // router.get('/products', async function(req, res) {
 // 	let result = await routeControl.getProducts();
 // 	res.json(result);
