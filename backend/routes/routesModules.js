@@ -22,31 +22,32 @@ getProducts = async (req , res) => {
             }
         });
 
-        return  res.json(result);
-        // return results;
-        // res.render('displayProductsView',
-        //         {title:"List of Products", data:results});
-        // res.format({
+        res.format({
 
-        //     'application/json': function() {
-        //         res.json(result);
-        //     },
+            'application/json': function() {
+                res.json(result);
+            },
     
-        //     'application/xml': function() {
-        //         let resultXml = 
-        //             '<?xml version="1.0"?>\n' +
-        //                     '<zipCode id="' + result._id + '">\n' + 
-        //                     '   <city>' + result.city + '</city>\n' + 
-        //                     '   <state>' + result.state + '</state>\n' + 	
-        //                     '   <pop>' + result.pop + '</pop>\n' + 				 
-        //                     '</zipCode>\n';
-                        
+            'application/xml': function() {
+                let resultXml = 
+                    '<?xml version="1.0"?>\n' +
+                    result.map((result) => {
+						return ( '<productID id="' + result.id + '">\n' + 
+                        '   <name>' + result.name + '</name>\n' + 
+                        '   <description>' + result.description + '</description>\n' + 	
+                        '   <price>' + result.price + '</price>\n' + 		
+                        '   <stockQuantity>' + result.stockQuantity + '</stockQuantity>\n' + 
+                        '   <img>' + result.img + '</img>\n' + 		 
+                        '</productID>\n')
+                    }).join('\n');
+                    
+                           
                 
-        //         res.type('application/xml');
-        //         res.send(resultXml);
-        //     },
+                res.type('application/xml');
+                res.send(resultXml);
+            },
     
-        // });
+        });
         
 };
 
