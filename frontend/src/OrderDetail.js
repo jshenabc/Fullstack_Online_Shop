@@ -1,8 +1,8 @@
 import React, { Component } from "react"
 // import "./Orders.css"
 import apis from './utils/API'
-import { StateContext } from './StateProvider'
 import LoadingBar from './LoadingBar'
+import Header from './Header'
 
 class OrderDetail extends Component {
     constructor(props) {
@@ -57,11 +57,12 @@ class OrderDetail extends Component {
         //   console.log({basket});
         const { order, isLoading } = this.state;
 
-        return isLoading ?
+        return (isLoading ?
         (
             <LoadingBar />
         ) : ( 
             <div>
+                <Header />
                 <h1 className="order_title">Your Order Detail</h1>
   
 
@@ -111,8 +112,8 @@ class OrderDetail extends Component {
                 }
 
             </div>
-        );
-        }
+        ));
+    }
 }
 
 
