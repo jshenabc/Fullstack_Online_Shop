@@ -31,7 +31,8 @@ function CheckoutSection () {
             //     type: "SUBMIT_ORDER",
             //     orderDetail: payload
             // })
-        
+            let redirectURL = "http://localhost:8000/order/" + res.data.id;
+            window.location.replace(redirectURL);
          
         })
 
@@ -42,7 +43,7 @@ function CheckoutSection () {
             // })
             console.log("order submitted, cart removed");
         })
-        window.location.replace("http://localhost:8000/myorders");
+      
     }
         return ( 
             <div className="checkout_section">
