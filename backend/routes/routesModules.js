@@ -103,6 +103,8 @@ getOrdersbyCustomerID = async (req , res) => {
     }).catch(err => console.log(err))
 };
 
+
+
 // view order detail by ID
 getOrderByID = async (req , res) => {
     
@@ -114,9 +116,40 @@ getOrderByID = async (req , res) => {
         if (!orders) {
             return res.json({ success: false, error: `This order was not found` })
         }
-        return res.json({ success: true, data: orders })
+        return  res.format({
+
+            'application/json': function() {
+                res.json({ success: true, data: orders })
+            },
+    
+            'application/xml': function() {
+                let resultXml = 
+                    '<?xml version="1.0"?>\n' +
+                
+                    
+                           
+                
+                res.type('application/xml');
+                res.send(resultXml);
+            },
+    
+        });
     }).catch(err => console.log(err))
 };
+
+// getOrderByID = async (req , res) => {
+    
+//     await Order.findOne({ _id: req.params.id }, (err, orders) => {
+//         if (err) {
+//             return res.json({ success: false, error: err })
+//         }
+//         console.log("orders",orders)
+//         if (!orders) {
+//             return res.json({ success: false, error: `This order was not found` })
+//         }
+//         return res.json({ success: true, data: orders })
+//     }).catch(err => console.log(err))
+// };
 
 // add products to carts
 updateCart = async (req , res) => {

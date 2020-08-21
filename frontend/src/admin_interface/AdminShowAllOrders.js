@@ -1,10 +1,11 @@
-import React, { Component } from "react"
-import "./Orders.css"
-import apis from './utils/API'
-import { StateContext } from './StateProvider'
-import LoadingBar from './LoadingBar'
+import React, { Component } from "react";
+import "./AdminShowAllOrders.css"
+
+import LoadingBar from '../LoadingBar'
 import { Link } from 'react-router-dom';
-class Orders extends Component {
+import admin_API from '../utils/admin_API'
+
+class AdminShowAllOrders extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -17,8 +18,7 @@ class Orders extends Component {
     
     componentDidMount = async () => {
         this.setState({ isLoading: true })
-        const [{user}] = this.context;
-        await apis.getOrdersbyCustomerID(user.id).then(orders => {
+        await admin_API.admin_getAllOrders().then(orders => {
             this.setState({
                 isLoading: false,
                 orderList: orders.data
@@ -29,14 +29,21 @@ class Orders extends Component {
         })
     }
     
+    handleRemoveOrder = async (id) => {
+        console.log(id)
+        await admin_API.admin_deleteSelectedOrder(id).then(res => {
+            console.log("delete success");
+            window.location.reload(false);
+        })
+    }
 
-    static contextType = StateContext; 
-    
     render() {
         // const [{orders}] = this.context;
         // console.log("orders", orders);
         let orders =this.state.orderList.data;
         const { isLoading } = this.state;
+
+
         return isLoading ?
         (
             <LoadingBar />
@@ -45,20 +52,28 @@ class Orders extends Component {
             <div className="orders">
                 {(this.state.orderList.length <= 0)?(
                     <div>
-                        <h1 className="order_title">You don't have any orders yet</h1>
+                        <h1 className="order_title">You don't have any Active Customer Orders</h1>
                     </div>
                 ):(
                     <div className="orders_section">
-                        <h1 className="order_title">Your Order Detail</h1>
+                        <h1 className="order_title">All Customer Orders</h1>
                         {orders.map(order => (
                             <div className="InOrderProduct" id={order._id}>
                                 <div>
+                                    <div className="custInfo">
+                                        <h2 className=""><strong>Customer Information</strong></h2>
+                                        <p className="">First Name: {order.customer.firstName}</p>
+                                        <p className="">Last Name: {order.customer.lastName}</p>
+                                        <p className="">Email: {order.customer.email}</p>
+                                        <p className="">Address: {order.customer.address}</p>
+                                    </div>
                                     <div className="OrderInfo">
                                         <h2 className=""><strong>Order Information</strong></h2>
                                         <p className="">Order ID: <strong>{order._id}</strong></p>
                                         <p className="">Total: <strong>{order.orderTotalPrice}</strong></p>
                                         <p className="">Order Status: <strong>{order.status}</strong></p>
-                                        <button><Link to={`/order/${order._id}`}>View Order Detail</Link></button>
+                                        {/* <button><Link to={`/order/${order._id}`}>Update Order</Link></button> */}
+                                        <button onClick={() => this.handleRemoveOrder(order._id)}>Delete Order</button>
                                     </div>
                                     
                                 </div>
@@ -97,5 +112,4 @@ class Orders extends Component {
     }
 }
 
-export default Orders
-
+export default AdminShowAllOrders
