@@ -11,6 +11,7 @@ export const admin_getAllCustomers = () => api.get(`/admin/customers`)
 export const admin_getAllActiveOrders = () => api.get(`/admin/activeOrders`)
 export const admin_getAllOrders = () => api.get(`/admin/allOrders`)
 export const admin_deleteSelectedOrder = id => api.delete(`/admin/delete/orderID/${id}`)
+export const admin_deleteSelectedProduct = id => api.delete(`/admin/delete/productID/${id}`)
 // export const createOrder = payload => api.post(`/order/submit`, payload)
 // export const deleteProductById = (custID, prodID) => api.delete(`/cart/delete/custID/${custID}/prodID/${prodID}`)
 // export const deleteAllProductFromCart = (custID) => api.delete(`/cart/deleteAll/custID/${custID}`)
@@ -22,7 +23,8 @@ const admin_API = {
     admin_getAllCustomers,
     admin_getAllActiveOrders,
     admin_getAllOrders,
-    admin_deleteSelectedOrder
+    admin_deleteSelectedOrder,
+    admin_deleteSelectedProduct
 }
 
 export default admin_API

@@ -42,6 +42,15 @@ class Header extends Component {
     }
     static contextType = StateContext; 
 
+    handleSearch =  () => {
+        let inputVal = document.getElementById("searchInput").value;
+        inputVal = inputVal.replace(/\s/g , "-");
+      
+        let redirectURL = "http://localhost:8000/products/" + inputVal;
+        console.log(redirectURL);
+        window.location.replace(redirectURL);
+    }
+
     render() {
 
         const [{basket, user}] = this.context;
@@ -57,8 +66,9 @@ class Header extends Component {
                 </Link>
                 {/* {Search box} */}
                 <div className="header_search">
-                    <input type="text" className="header_searchInput" />
-                    <SearchIcon className="header_searchIcon" />
+                    <input type="text" className="header_searchInput" id="searchInput" />
+                    <SearchIcon className="header_searchIcon" onClick={() => this.handleSearch()}/>
+                    
                 </div>
                 <div className="header_nav">
                     <Link to ="/login" className="header_link">

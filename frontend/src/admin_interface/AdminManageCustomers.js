@@ -5,7 +5,7 @@ import LoadingBar from '../LoadingBar'
 // import { StateContext } from './StateProvider'
 // import axios from 'axios'
 import admin_API from '../utils/admin_API'
-
+import { Link } from 'react-router-dom';
 class AdminManageCustomers extends Component {
     constructor(props) {
         super(props)
@@ -51,7 +51,7 @@ class AdminManageCustomers extends Component {
                                     <p>{customer.email}</p>
                                     <p>{customer.address}</p>
                                 </div>
-                                <button>View Customer Order</button>
+                                <button><Link to={`/admin/managercustomers/viewOrders/${customer.id}`}>View Customer Orders</Link></button>
                                 
                             </div>
                         )

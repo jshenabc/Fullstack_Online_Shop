@@ -32,6 +32,7 @@ function CheckoutSection () {
             //     orderDetail: payload
             // })
             let redirectURL = "http://localhost:8000/order/" + res.data.id;
+            console.log("redirectURL", redirectURL)
             window.location.replace(redirectURL);
          
         })

@@ -7,6 +7,7 @@ const api = axios.create({
 })
 
 export const insertProductToCart = payload => api.post(`/cart/add`, payload)
+export const getProductBySearch = (productName) => api.get(`/products/${productName}`)
 export const getAllProducts = () => api.get(`/products`)
 export const createOrder = payload => api.post(`/order/submit`, payload)
 export const deleteProductById = (custID, prodID) => api.delete(`/cart/delete/custID/${custID}/prodID/${prodID}`)
@@ -23,7 +24,8 @@ const apis = {
     getCartByCustomerId,
     getOrdersbyCustomerID,
     getOrderbyID,
-    deleteAllProductFromCart
+    deleteAllProductFromCart,
+    getProductBySearch
 }
 
 export default apis

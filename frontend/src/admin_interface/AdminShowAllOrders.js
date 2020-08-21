@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "./AdminShowAllOrders.css"
 
 import LoadingBar from '../LoadingBar'
-import { Link } from 'react-router-dom';
 import admin_API from '../utils/admin_API'
 
 class AdminShowAllOrders extends Component {
@@ -30,9 +29,12 @@ class AdminShowAllOrders extends Component {
     }
     
     handleRemoveOrder = async (id) => {
-        console.log(id)
+        this.setState({ isLoading: true })
         await admin_API.admin_deleteSelectedOrder(id).then(res => {
             console.log("delete success");
+            this.setState({
+                isLoading: false,
+            })
             window.location.reload(false);
         })
     }

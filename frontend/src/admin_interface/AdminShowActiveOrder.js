@@ -63,7 +63,7 @@ class AdminShowActiveOrder extends Component {
                                         <p className="">Order ID: <strong>{order._id}</strong></p>
                                         <p className="">Total: <strong>{order.orderTotalPrice}</strong></p>
                                         <p className="">Order Status: <strong>{order.status}</strong></p>
-                                        <button><Link to={`/order/${order._id}`}>Update Order</Link></button>
+                                        {/* <button><Link to={`/order/${order._id}`}>Update Order</Link></button> */}
                                     </div>
                                     
                                 </div>

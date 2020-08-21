@@ -22,8 +22,12 @@ class AdminHeader extends Component {
                 <div className="header_nav">
                     <Link to ="/admin" className="header_link">
                         <div className="header_opt">  
-                        <span>Welcome! Admin</span>
-                  
+                            <span>Welcome! Admin</span>
+                        </div>
+                    </Link>
+                    <Link to ="/admin" className="header_link">
+                        <div className="header_opt">  
+                            <span>Manage Active Orders</span>
                         </div>
                     </Link>
                     <Link to ="/admin/managercustomers" className="header_link">
@@ -34,6 +38,11 @@ class AdminHeader extends Component {
                     <Link to ="/admin/allOrders" className="header_link">
                         <div className="header_opt">     
                             <span>Manage Orders</span>
+                        </div>
+                    </Link>
+                    <Link to ="/admin/allProducts" className="header_link">
+                        <div className="header_opt">     
+                            <span>Manage Products</span>
                         </div>
                     </Link>
                 </div>

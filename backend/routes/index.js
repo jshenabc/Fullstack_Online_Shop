@@ -11,6 +11,7 @@ router.get('/', (req, res) => {
 
 //customer interface
 router.get('/products', routeControl.getProducts);
+router.get('/products/:name', routeControl.searchProductsbyName)
 router.get('/orders/:id', routeControl.getOrdersbyCustomerID)
 router.get('/order/Detail/:id', routeControl.getOrderByID)
 router.get('/cart/:id', routeControl.getCart)
@@ -24,4 +25,5 @@ router.get('/admin/customers', admin_routeControl.getCustomers);
 router.get('/admin/activeOrders', admin_routeControl.getActiveOrders);
 router.get('/admin/allOrders', admin_routeControl.getAllOrders);
 router.delete('/admin/delete/orderID/:id', admin_routeControl.removeOrder);
+router.delete('/admin/delete/productID/:id', admin_routeControl.removeProduct);
 module.exports = router;

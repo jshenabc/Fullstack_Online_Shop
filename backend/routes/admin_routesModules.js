@@ -1,7 +1,5 @@
 const productDB = require('../model/productDB.js');
 const Product = productDB.getModel();
-const cartDB = require('../model/cartDB.js');
-const Cart = cartDB.getModel();
 const orderDB = require('../model/orderDB.js');
 const Order = orderDB.getModel();
 const customerDB = require('../model/customerDB.js');
@@ -97,10 +95,27 @@ removeOrder = async (req , res) => {
     }).catch(err => console.log(err))
     
 };
+// delete selected product
+removeProduct = async (req , res) => {
 
+
+    let productIDParam = req.params.id;
+
+   await Product.deleteOne({ _id : productIDParam }, (err) => {
+        if(err)
+            console.log("Error Selecting : %s ", err); 
+        return res.json({
+            success: true,
+            id: productIDParam,
+            message: 'order removed!',
+        })           
+    }).catch(err => console.log(err))
+    
+};
 module.exports = {
     getCustomers,
     getActiveOrders,
     getAllOrders,
-    removeOrder
+    removeOrder,
+    removeProduct,
 }

@@ -103,7 +103,22 @@ getOrdersbyCustomerID = async (req , res) => {
     }).catch(err => console.log(err))
 };
 
-
+// get all orders for customer
+searchProductsbyName = async (req , res) => {
+    // let query = req.params.name.replace(/-/g, ' ');
+    console.log(req.params.name);
+    // console.log(query);
+    await Product.find({ name: req.params.name.replace(/-/g, ' ') }, (err, products) => {
+        if (err) {
+            return res.json({ success: false, error: err })
+        }
+     
+        if (!products) {
+            return res.json({ success: false, error: `Products not found` })
+        }
+        return res.json({ success: true, data: products })
+    }).catch(err => console.log(err))
+};
 
 // view order detail by ID
 getOrderByID = async (req , res) => {
@@ -125,10 +140,6 @@ getOrderByID = async (req , res) => {
             'application/xml': function() {
                 let resultXml = 
                     '<?xml version="1.0"?>\n' +
-                
-                    
-                           
-                
                 res.type('application/xml');
                 res.send(resultXml);
             },
@@ -314,4 +325,5 @@ module.exports = {
     getOrdersbyCustomerID,
     removeAllCart,
     getOrderByID,
+    searchProductsbyName,
 }

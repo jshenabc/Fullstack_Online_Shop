@@ -36,14 +36,14 @@ class Orders extends Component {
         // const [{orders}] = this.context;
         // console.log("orders", orders);
         let orders =this.state.orderList.data;
-        const { isLoading } = this.state;
+        const { isLoading, orderList } = this.state;
         return isLoading ?
         (
             <LoadingBar />
         ) : (
 
             <div className="orders">
-                {(this.state.orderList.length <= 0)?(
+                {(typeof(orderList.data) === 'undefined'|| orderList.data.length === 0)?(
                     <div>
                         <h1 className="order_title">You don't have any orders yet</h1>
                     </div>

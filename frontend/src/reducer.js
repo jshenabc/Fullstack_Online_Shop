@@ -1,5 +1,6 @@
 export const initialState = {
     basket: [],
+    //hardcoded logged In user due to the time limitation, please copy the customer id from mongoDB Shen_OnlineShop_Customer collection
     user: {id: "5f3dd486789696722576c629", firstName:'John',lastName:'Smith', email:'JohnSmith@bu.edu', address:'1 Bay State Road Boston, MA 02215'},
     orders: [],
 }
