@@ -3,7 +3,7 @@ import "./Orders.css"
 import apis from './utils/API'
 import { StateContext } from './StateProvider'
 import LoadingBar from './LoadingBar'
-
+import { Link } from 'react-router-dom';
 class Orders extends Component {
     constructor(props) {
         super(props)
@@ -25,6 +25,7 @@ class Orders extends Component {
             })
     
             console.log("receive orders: ", this.state.orderList.data);
+            
         })
     }
     
@@ -52,19 +53,12 @@ class Orders extends Component {
                         {orders.map(order => (
                             <div className="InOrderProduct" id={order._id}>
                                 <div>
-                                    <div className="custInfo">
-                                        <h2 className=""><strong>Customer Information</strong></h2>
-                                        <p className="">Order ID: <strong>{order._id}</strong></p>
-                                        <p className="">First Name: {order.customer.firstName}</p>
-                                        <p className="">Last Name: {order.customer.lastName}</p>
-                                        <p className="">Email: {order.customer.email}</p>
-                                        <p className="">Address: {order.customer.address}</p>
-                                    </div>
                                     <div className="OrderInfo">
                                         <h2 className=""><strong>Order Information</strong></h2>
+                                        <p className="">Order ID: <strong>{order._id}</strong></p>
                                         <p className="">Total: <strong>{order.orderTotalPrice}</strong></p>
                                         <p className="">Order Status: <strong>{order.status}</strong></p>
-                                        <button>View Order Detail</button>
+                                        <button><Link to={`/order/${order._id}`}>View Order Detail</Link></button>
                                     </div>
                                     
                                 </div>

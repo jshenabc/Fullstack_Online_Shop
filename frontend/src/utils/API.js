@@ -13,6 +13,7 @@ export const deleteProductById = (custID, prodID) => api.delete(`/cart/delete/cu
 export const deleteAllProductFromCart = (custID) => api.delete(`/cart/deleteAll/custID/${custID}`)
 export const getCartByCustomerId = id => api.get(`/cart/${id}`)
 export const getOrdersbyCustomerID = id => api.get(`/orders/${id}`)
+export const getOrderbyID = id => api.get(`/order/Detail/${id}`)
 
 const apis = {
     insertProductToCart,
@@ -21,6 +22,7 @@ const apis = {
     deleteProductById,
     getCartByCustomerId,
     getOrdersbyCustomerID,
+    getOrderbyID,
     deleteAllProductFromCart
 }
 

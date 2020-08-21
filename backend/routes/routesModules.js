@@ -87,9 +87,9 @@ getCart = async (req , res) => {
     }
 };
 
+// get all orders for customer
 getOrdersbyCustomerID = async (req , res) => {
-    let queryID = req.params.id;
-    console.log("queryID",queryID)
+
     await Order.find({ customerID: req.params.id }, (err, orders) => {
         if (err) {
             return res.json({ success: false, error: err })
@@ -97,6 +97,21 @@ getOrdersbyCustomerID = async (req , res) => {
         console.log("orders",orders)
         if (!orders) {
             return res.json({ success: false, error: `Orders not found` })
+        }
+        return res.json({ success: true, data: orders })
+    }).catch(err => console.log(err))
+};
+
+// view order detail by ID
+getOrderByID = async (req , res) => {
+    
+    await Order.findOne({ _id: req.params.id }, (err, orders) => {
+        if (err) {
+            return res.json({ success: false, error: err })
+        }
+        console.log("orders",orders)
+        if (!orders) {
+            return res.json({ success: false, error: `This order was not found` })
         }
         return res.json({ success: true, data: orders })
     }).catch(err => console.log(err))
@@ -264,4 +279,5 @@ module.exports = {
     submitOrder,
     getOrdersbyCustomerID,
     removeAllCart,
+    getOrderByID,
 }

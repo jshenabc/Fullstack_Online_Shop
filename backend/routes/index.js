@@ -11,6 +11,7 @@ router.get('/', (req, res) => {
 
 router.get('/products', routeControl.getProducts);
 router.get('/orders/:id', routeControl.getOrdersbyCustomerID)
+router.get('/order/Detail/:id', routeControl.getOrderByID)
 router.get('/cart/:id', routeControl.getCart)
 router.post('/cart/add', routeControl.updateCart);
 router.delete('/cart/delete/custID/:custID/prodID/:prodID', routeControl.removeCart);

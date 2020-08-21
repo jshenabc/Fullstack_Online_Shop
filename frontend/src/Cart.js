@@ -6,11 +6,9 @@ import InCartProduct from './InCartProduct'
 import CheckoutSection from "./CheckoutSection";
 
 function Cart () {
-    // state = {
-    //     cart: [],
-    //     products: []
-    // }
+
     const [{basket}] = useStateValue();
+    
     
         return ( 
            <div className="cart">

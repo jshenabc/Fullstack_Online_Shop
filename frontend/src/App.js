@@ -5,6 +5,7 @@ import Header from './Header'
 import Homepage from './Homepage';
 import Cart from './Cart';
 import Orders from './Orders';
+import OrderDetail from './OrderDetail';
 
 function App() {
 
@@ -12,6 +13,10 @@ function App() {
     <Router>
       <div className="app">
         <Switch>
+          <Route path='/order/:id' component={OrderDetail} />
+          {/* <Route path="/order/:id">
+            <OrderDetail />
+          </Route> */}
           <Route path="/cart">
             <Header />
             <Cart />
